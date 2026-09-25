@@ -359,7 +359,7 @@ public class Main {
 if (serviceTime <= 0) {
 
     System.out.println(
-            "Service time must be greater than 0."
+            "Service time must be greater than 0"
     );
 
     return;
