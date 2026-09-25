@@ -290,93 +290,48 @@ public class Main {
     // ==================================================
 
     private static void addStudentRecord(
-            Scanner scanner,
-            StudentLinkedList records) {
+        Scanner scanner,
+        StudentLinkedList records) {
 
-        System.out.println(
-                "\n--- ADD STUDENT SERVICE RECORD ---"
-        );
+    System.out.println("\n--- ADD STUDENT SERVICE RECORD ---");
 
+    System.out.print("Student Number: ");
+    String studentNumber = scanner.nextLine().trim();
 
-        System.out.print("Student Number: ");
+    System.out.print("Student Name: ");
+    String name = scanner.nextLine().trim();
 
-        String studentNumber =
-                scanner.nextLine();
+    System.out.print("Service Type: ");
+    String serviceType = scanner.nextLine().trim();
 
+    System.out.print("Estimated Service Time (minutes): ");
+    String serviceTimeInput = scanner.nextLine().trim();
 
-        System.out.print("Student Name: ");
+    int serviceTime;
 
-        String name =
-                scanner.nextLine();
-
-
-        System.out.print("Service Type: ");
-
-        String serviceType =
-                scanner.nextLine();
-
-
-        System.out.print(
-                "Estimated Service Time (minutes): "
-        );
-
-
-        int serviceTime;
-
-        try {
-
-            serviceTime =
-                    Integer.parseInt(
-                            scanner.nextLine()
-                    );
-
-        } catch (NumberFormatException e) {
-
-            System.out.println(
-                    "Invalid service time."
-            );
-
-            return;
-        }
-
-        try {
-
-                serviceTime =
-                        Integer.parseInt(
-                                scanner.nextLine()
-                        );
-
-        } catch (NumberFormatException e) {
-
-                System.out.println(
-                        "Invalid service time."
-                );
-
+    try {
+        serviceTime = Integer.parseInt(serviceTimeInput);
+    } catch (NumberFormatException e) {
+        System.out.println("Invalid service time.");
         return;
-        }
+    }
 
+    if (serviceTime <= 0) {
+        System.out.println("Service time must be greater than 0.");
+        return;
+    }
 
-if (serviceTime <= 0) {
-
-    System.out.println(
-            "Service time must be greater than 0"
+    Student student = new Student(
+            studentNumber,
+            name,
+            serviceType,
+            serviceTime
     );
 
-    return;
+    records.insertStudent(student);
+
+    System.out.println("Student service record added successfully.");
 }
-
-
-        Student student =
-                new Student(
-                        studentNumber,
-                        name,
-                        serviceType,
-                        serviceTime
-                );
-
-
-        records.insertStudent(student);
-    }
 
 
     // ==================================================
