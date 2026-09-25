@@ -218,18 +218,28 @@ public class Main {
 
         try {
 
-            serviceTime =
-                    Integer.parseInt(
-                            scanner.nextLine()
-                    );
+                serviceTime =
+                        Integer.parseInt(
+                                scanner.nextLine()
+                        );
 
         } catch (NumberFormatException e) {
 
-            System.out.println(
-                    "Invalid service time."
-            );
+                System.out.println(
+                "Invalid service time."
+                );
 
-            return;
+        return;
+        }
+
+
+        if (serviceTime <= 0) {
+
+                System.out.println(
+                "Service time must be greater than 0."
+        );
+
+        return;
         }
 
 
@@ -243,7 +253,7 @@ public class Main {
 
 
         waitingQueue.enqueue(student);
-    }
+        }
 
 
     // ==================================================
@@ -328,6 +338,32 @@ public class Main {
 
             return;
         }
+
+        try {
+
+                serviceTime =
+                        Integer.parseInt(
+                                scanner.nextLine()
+                        );
+
+        } catch (NumberFormatException e) {
+
+                System.out.println(
+                        "Invalid service time."
+                );
+
+        return;
+        }
+
+
+if (serviceTime <= 0) {
+
+    System.out.println(
+            "Service time must be greater than 0."
+    );
+
+    return;
+}
 
 
         Student student =
