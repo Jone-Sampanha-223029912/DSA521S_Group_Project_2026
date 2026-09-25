@@ -1,0 +1,891 @@
+PART A5 — DATA-STRUCTURE JUSTIFICATION
+
+1. Queue
+A queue is appropriate for the student waiting line because students should normally
+be served in the same order in which they arrive. A queue follows FIFO
+(First In, First Out). New students are added at the rear of the queue, while the
+student at the front is served first.
+
+2. Singly Linked List
+A singly linked list is appropriate for storing student service records because
+records can be inserted and deleted by changing links between nodes. Each node
+stores the student's information and a link to the next record. The list can also
+be traversed from the head to the end to display or search for records.
+
+3. Stack
+A stack is appropriate for postfix expression evaluation because it follows LIFO
+(Last In, First Out). Numbers are pushed onto the stack. When an operator is found,
+the required operands are popped from the top, the operation is performed, and the
+result is pushed back onto the stack.
+
+4. Array
+An array is appropriate for storing daily service times because the program needs
+to process a collection of integer service-time values. The array can be traversed
+using a loop to calculate the total, average, highest, lowest, and the number of
+services longer than 10 minutes.
+
+PART C — ALGORITHM EXPERIMENT RESULTS
+
+1. NORMAL ARRAY RESULTS
+
+Algorithm       Size    Comparisons    Execution Time (ns)
+-----------------------------------------------------------
+Selection       20      190            9099
+Insertion       20      114            11100
+Merge           20      64             22500
+Quick           20      116            14800
+
+Selection       50      1225           42800
+Insertion       50      503            22800
+Merge           50      225            36301
+Quick           50      409            24101
+
+Selection       100     4950           136900
+Insertion       100     2596           103699
+Merge           100     535            81200
+Quick           100     905            41199
+
+Selection       500     124750         3352000
+Insertion       500     64699          2930200
+Merge           500     3849           152099
+Quick           500     6635           357400
+
+
+2. ALMOST-SORTED 100-ELEMENT ARRAY RESULTS
+
+The 100-element array was first sorted into ascending order.
+Five pairs of neighbouring values were then swapped to create
+an almost-sorted array.
+
+Algorithm       Size    Comparisons    Execution Time (ns)
+-----------------------------------------------------------
+Selection       100     4950           49299
+Insertion       100     104            8200
+Merge           100     357            19300
+Quick           100     4700           171100
+
+
+3. ANALYSIS OF RESULTS
+
+Question 1:
+Which algorithm performed the fewest comparisons?
+
+Answer:
+Merge Sort performed the fewest comparisons on the normal
+randomly generated arrays.
+
+For the 500-element array:
+
+Selection Sort = 124750 comparisons
+Insertion Sort = 64699 comparisons
+Merge Sort     = 3849 comparisons
+Quick Sort     = 6635 comparisons
+
+Merge Sort therefore required the fewest comparisons for the
+largest normal test array.
+
+
+Question 2:
+Which algorithm performed the most comparisons?
+
+Answer:
+Selection Sort performed the most comparisons.
+
+For the 500-element array, Selection Sort performed 124750
+comparisons, which was much higher than the other algorithms.
+
+Selection Sort repeatedly searches the remaining unsorted
+section of the array for the smallest value. Therefore, the
+number of comparisons becomes very large as the input size
+increases.
+
+
+Question 3:
+Which algorithm performed best on the almost-sorted array?
+
+Answer:
+Insertion Sort performed best on the almost-sorted array.
+
+Its results were:
+
+Comparisons = 104
+Execution Time = 8200 ns
+
+This was much lower than the other algorithms:
+
+Selection Sort = 4950 comparisons
+Merge Sort     = 357 comparisons
+Quick Sort     = 4700 comparisons
+
+Insertion Sort performs very well when an array is already
+almost sorted because only a small number of elements need to
+be shifted into their correct positions.
+
+
+Question 4:
+Which algorithm appeared to scale best as the input became larger?
+
+Answer:
+Merge Sort appeared to scale best as the input size increased.
+
+For 500 elements, Merge Sort performed:
+
+3849 comparisons
+152099 ns execution time
+
+Quick Sort also performed much better than Selection Sort and
+Insertion Sort on the large random array, but Merge Sort used
+fewer comparisons and had a lower execution time in this
+experiment.
+
+Therefore, based on these experimental results, Merge Sort
+appeared to scale best as the input size increased.
+
+
+Question 5:
+Did the experimental results generally agree with the theoretical
+time complexity? Explain.
+
+Answer:
+Yes, the experimental results generally agreed with the
+theoretical time complexity.
+
+Selection Sort has O(n^2) time complexity and its comparisons
+increased greatly as the input size increased.
+
+Insertion Sort also has O(n^2) worst-case time complexity.
+Its number of comparisons became large for the random
+500-element array.
+
+Merge Sort has O(n log n) time complexity. It required far
+fewer comparisons than Selection Sort and Insertion Sort for
+the larger arrays.
+
+Quick Sort normally has an average time complexity of
+O(n log n), although its worst case is O(n^2).
+
+The experiment also showed that the pivot selection can affect
+Quick Sort. The implementation used the first element as the
+pivot. On the almost-sorted array, Quick Sort performed
+4700 comparisons, which was much worse than Insertion Sort
+and Merge Sort.
+
+
+Question 6:
+Is execution time alone enough to decide which algorithm is better?
+Explain.
+
+Answer:
+No. Execution time alone is not enough to decide which algorithm
+is better.
+
+Execution time can be affected by the computer hardware, the
+Java Virtual Machine, background programs, memory behaviour,
+and other system activities.
+
+Other factors must also be considered, including:
+
+- Number of comparisons
+- Input size
+- Arrangement of the input data
+- Theoretical time complexity
+- Memory requirements
+
+For example, with 20 elements:
+
+Selection Sort:
+190 comparisons
+9099 ns
+
+Merge Sort:
+64 comparisons
+22500 ns
+
+Selection Sort had a lower measured execution time in this small
+test, even though Merge Sort performed far fewer comparisons.
+
+This shows that a single execution-time measurement is not enough
+to determine which algorithm is generally more efficient.
+
+
+4. GENERAL CONCLUSION
+
+The experiment showed that different sorting algorithms perform
+better under different conditions.
+
+Merge Sort performed very well as the random input size became
+larger.
+
+Quick Sort also performed well on the normal random arrays, but
+its performance became worse on the almost-sorted array because
+the first element was used as the pivot.
+
+Insertion Sort performed extremely well on the almost-sorted
+array.
+
+Selection Sort performed the highest number of comparisons as
+the input size became larger.
+
+PART E — PSEUDOCODE AND ALGORITHM REPRESENTATION
+
+
+1. QUEUE PSEUDOCODE
+
+1.1 ENQUEUE
+
+ALGORITHM enqueue(student)
+
+    IF rear = size - 1 THEN
+        DISPLAY "Queue is full"
+        RETURN
+    ENDIF
+
+    IF front = -1 THEN
+        front = 0
+        rear = 0
+    ELSE
+        rear = rear + 1
+    ENDIF
+
+    queue[rear] = student
+
+END ALGORITHM
+
+
+1.2 DEQUEUE
+
+ALGORITHM dequeue()
+
+    IF front = -1 THEN
+        DISPLAY "Queue is empty"
+        RETURN null
+    ENDIF
+
+    servedStudent = queue[front]
+
+    IF front = rear THEN
+        front = -1
+        rear = -1
+    ELSE
+        front = front + 1
+    ENDIF
+
+    RETURN servedStudent
+
+END ALGORITHM
+
+
+
+2. STACK PSEUDOCODE
+
+2.1 PUSH
+
+ALGORITHM push(value)
+
+    IF top = stack.length - 1 THEN
+        DISPLAY "Stack is full"
+        RETURN
+    ENDIF
+
+    top = top + 1
+
+    stack[top] = value
+
+END ALGORITHM
+
+
+2.2 POP
+
+ALGORITHM pop()
+
+    IF top = -1 THEN
+        DISPLAY "Stack is empty"
+        RETURN 0
+    ENDIF
+
+    value = stack[top]
+
+    top = top - 1
+
+    RETURN value
+
+END ALGORITHM
+
+
+2.3 POSTFIX EXPRESSION EVALUATION
+
+ALGORITHM evaluatePostfix(expression)
+
+    SPLIT expression into tokens
+
+    CREATE empty stack
+
+
+    FOR each token in tokens
+
+        IF token is a number THEN
+
+            CONVERT token to number
+
+            PUSH number onto stack
+
+        ELSE
+
+            secondOperand = POP stack
+
+            firstOperand = POP stack
+
+
+            IF token = "+" THEN
+
+                result = firstOperand + secondOperand
+
+            ELSE IF token = "-" THEN
+
+                result = firstOperand - secondOperand
+
+            ELSE IF token = "*" THEN
+
+                result = firstOperand * secondOperand
+
+            ELSE IF token = "/" THEN
+
+                IF secondOperand = 0 THEN
+
+                    DISPLAY "Cannot divide by zero"
+
+                    RETURN
+
+                ENDIF
+
+                result = firstOperand / secondOperand
+
+            ENDIF
+
+
+            PUSH result onto stack
+
+        ENDIF
+
+    ENDFOR
+
+
+    RETURN PEEK stack
+
+END ALGORITHM
+
+
+
+3. SINGLY LINKED LIST PSEUDOCODE
+
+3.1 INSERT NODE AT BEGINNING
+
+ALGORITHM insertAtBeginning(student)
+
+    CREATE newNode
+
+    newNode.data = student
+
+    newNode.next = head
+
+    head = newNode
+
+END ALGORITHM
+
+
+3.2 INSERT NODE AT END
+
+ALGORITHM insertNode(student)
+
+    CREATE newNode
+
+    newNode.data = student
+
+    newNode.next = null
+
+
+    IF head = null THEN
+
+        head = newNode
+
+        RETURN
+
+    ENDIF
+
+
+    current = head
+
+
+    WHILE current.next is not null
+
+        current = current.next
+
+    ENDWHILE
+
+
+    current.next = newNode
+
+END ALGORITHM
+
+
+3.3 INSERT NODE AT SPECIFIED POSITION
+
+ALGORITHM insertAtPosition(student, position)
+
+    IF position <= 0 THEN
+
+        DISPLAY "Invalid position"
+
+        RETURN
+
+    ENDIF
+
+
+    IF position = 1 THEN
+
+        insertAtBeginning(student)
+
+        RETURN
+
+    ENDIF
+
+
+    CREATE newNode
+
+    newNode.data = student
+
+
+    current = head
+
+    currentPosition = 1
+
+
+    WHILE current is not null
+          AND currentPosition < position - 1
+
+        current = current.next
+
+        currentPosition = currentPosition + 1
+
+    ENDWHILE
+
+
+    IF current = null THEN
+
+        DISPLAY "Position does not exist"
+
+        RETURN
+
+    ENDIF
+
+
+    newNode.next = current.next
+
+    current.next = newNode
+
+END ALGORITHM
+
+
+3.4 DELETE NODE
+
+ALGORITHM deleteNode(studentNumber)
+
+    IF head = null THEN
+
+        RETURN false
+
+    ENDIF
+
+
+    IF head.data.studentNumber = studentNumber THEN
+
+        head = head.next
+
+        RETURN true
+
+    ENDIF
+
+
+    current = head
+
+
+    WHILE current.next is not null
+
+        IF current.next.data.studentNumber = studentNumber THEN
+
+            current.next = current.next.next
+
+            RETURN true
+
+        ENDIF
+
+
+        current = current.next
+
+    ENDWHILE
+
+
+    RETURN false
+
+END ALGORITHM
+
+
+3.5 SEARCH NODE
+
+ALGORITHM searchNode(studentNumber)
+
+    current = head
+
+
+    WHILE current is not null
+
+        IF current.data.studentNumber = studentNumber THEN
+
+            RETURN current.data
+
+        ENDIF
+
+
+        current = current.next
+
+    ENDWHILE
+
+
+    RETURN null
+
+END ALGORITHM
+
+
+3.6 TRAVERSE LIST
+
+ALGORITHM traverseList()
+
+    IF head = null THEN
+
+        DISPLAY "Student record list is empty"
+
+        RETURN
+
+    ENDIF
+
+
+    current = head
+
+
+    WHILE current is not null
+
+        DISPLAY current.data
+
+        current = current.next
+
+    ENDWHILE
+
+END ALGORITHM
+
+
+
+4. SELECTION SORT PSEUDOCODE
+
+ALGORITHM selectionSort(array)
+
+    comparisons = 0
+    swaps = 0
+
+    n = length of array
+
+
+    FOR i = 0 TO n - 2
+
+        minIndex = i
+
+
+        FOR j = i + 1 TO n - 1
+
+            comparisons = comparisons + 1
+
+
+            IF array[j] < array[minIndex] THEN
+
+                minIndex = j
+
+            ENDIF
+
+        ENDFOR
+
+
+        temp = array[i]
+
+        array[i] = array[minIndex]
+
+        array[minIndex] = temp
+
+        swaps = swaps + 1
+
+
+        IF i < 3 THEN
+
+            DISPLAY array
+
+        ENDIF
+
+    ENDFOR
+
+END ALGORITHM
+
+
+
+5. INSERTION SORT PSEUDOCODE
+
+ALGORITHM insertionSort(array)
+
+    comparisons = 0
+    shifts = 0
+
+
+    FOR i = 1 TO length(array) - 1
+
+        key = array[i]
+
+        j = i - 1
+
+
+        WHILE j >= 0
+
+            comparisons = comparisons + 1
+
+
+            IF array[j] > key THEN
+
+                array[j + 1] = array[j]
+
+                shifts = shifts + 1
+
+                j = j - 1
+
+            ELSE
+
+                BREAK
+
+            ENDIF
+
+        ENDWHILE
+
+
+        array[j + 1] = key
+
+
+        IF i <= 3 THEN
+
+            DISPLAY array
+
+        ENDIF
+
+    ENDFOR
+
+END ALGORITHM
+
+
+
+6. MERGE SORT PSEUDOCODE
+
+ALGORITHM mergeSort(array, low, high)
+
+    IF low >= high THEN
+
+        RETURN
+
+    ENDIF
+
+
+    middle = (low + high) / 2
+
+
+    mergeSort(array, low, middle)
+
+    mergeSort(array, middle + 1, high)
+
+
+    merge(array, low, middle, high)
+
+END ALGORITHM
+
+
+ALGORITHM merge(array, low, middle, high)
+
+    leftSize = middle - low + 1
+
+    rightSize = high - middle
+
+
+    CREATE left[leftSize]
+
+    CREATE right[rightSize]
+
+
+    COPY left half of array into left
+
+    COPY right half of array into right
+
+
+    i = 0
+    j = 0
+    k = low
+
+
+    WHILE i < leftSize AND j < rightSize
+
+        comparisons = comparisons + 1
+
+
+        IF left[i] <= right[j] THEN
+
+            array[k] = left[i]
+
+            i = i + 1
+
+        ELSE
+
+            array[k] = right[j]
+
+            j = j + 1
+
+        ENDIF
+
+
+        k = k + 1
+
+    ENDWHILE
+
+
+    WHILE i < leftSize
+
+        array[k] = left[i]
+
+        i = i + 1
+
+        k = k + 1
+
+    ENDWHILE
+
+
+    WHILE j < rightSize
+
+        array[k] = right[j]
+
+        j = j + 1
+
+        k = k + 1
+
+    ENDWHILE
+
+END ALGORITHM
+
+
+
+7. QUICK SORT PSEUDOCODE
+
+Pivot Selection Rule:
+The first element of each partition is selected as the pivot.
+
+
+ALGORITHM quickSort(array, start, end)
+
+    IF start < end THEN
+
+        pivotPosition =
+            partition(array, start, end)
+
+
+        quickSort(
+            array,
+            start,
+            pivotPosition - 1
+        )
+
+
+        quickSort(
+            array,
+            pivotPosition + 1,
+            end
+        )
+
+    ENDIF
+
+END ALGORITHM
+
+
+ALGORITHM partition(array, start, end)
+
+    pivotValue = array[start]
+
+    i = start + 1
+
+    j = end
+
+
+    WHILE true
+
+
+        WHILE i <= end
+
+            comparisons = comparisons + 1
+
+
+            IF array[i] <= pivotValue THEN
+
+                i = i + 1
+
+            ELSE
+
+                BREAK
+
+            ENDIF
+
+        ENDWHILE
+
+
+        WHILE j > start
+
+            comparisons = comparisons + 1
+
+
+            IF array[j] > pivotValue THEN
+
+                j = j - 1
+
+            ELSE
+
+                BREAK
+
+            ENDIF
+
+        ENDWHILE
+
+
+        IF i < j THEN
+
+            temp = array[i]
+
+            array[i] = array[j]
+
+            array[j] = temp
+
+        ELSE
+
+            BREAK
+
+        ENDIF
+
+    ENDWHILE
+
+
+    temp = array[start]
+
+    array[start] = array[j]
+
+    array[j] = temp
+
+
+    RETURN j
+
+END ALGORITHM
